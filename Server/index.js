@@ -23,6 +23,24 @@ app.post('/add', (req, res) => {
     .catch(err => res.json(err))
 })
 
+app.put('/update/:id', (req, res) => {
+    const { id } = req.params;
+    TodoModal.findByIdAndUpdate(id, { done: true }, { new: true })
+        .then(result => res.json(result))
+        .catch(err => {
+            console.error(err);
+        });
+});
+
+app.delete('/delete/:id', (req, res) => {
+    const { id } = req.params;
+    TodoModal.findByIdAndDelete(id, { done: true }, { new: true })
+        .then(result => res.json(result))
+        .catch(err => {
+            console.error(err);
+        });
+});
+
 app.listen(3001, () => {
     console.log("server is running")
 })
